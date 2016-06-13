@@ -39,6 +39,12 @@ class BugsnagComponent extends \CApplicationComponent
      */
     public $filters = ['password'];
     /**
+     * Absolute path to the root of your application.
+     *
+     * @var string
+     */
+    public $projectRoot;
+    /**
      * Bugsnag client instance
      *
      * @var Bugsnag_Client
@@ -80,15 +86,15 @@ class BugsnagComponent extends \CApplicationComponent
         $client->setNotifyReleaseStages($this->notifyReleaseStages);
         $client->setReleaseStage($this->releaseStage);
         $client->setFilters($this->filters);
+        // Set project root
+        if ($this->projectRoot !== null) {
+            $client->setProjectRoot($this->projectRoot);
+        }
         // Set user info
         $user = $this->getUserData();
         if ($user) {
             $client->setUser($user);
         }
-
-        // Register error handlers
-//        set_error_handler(array($client, 'errorHandler'));
-//        set_exception_handler(array($client, 'exceptionHandler'));
 
         // Store client
         $this->_client = $client;

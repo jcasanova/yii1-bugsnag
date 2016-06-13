@@ -15,25 +15,30 @@ Configuration
 ```php
 <?php
 
-'components' => [
-    'bugsnag' => [
-        'class' => '\demi\bugsnag\yii1\BugsnagComponent',
-        'bugsnagApiKey' => '<YOU API KEY>',
-        'notifyReleaseStages' => ['production', 'development'],
-    ],
-    'log' => [
-        'class' => 'CLogRouter',
-        'routes' => [
-            [
-                'class' => '\demi\bugsnag\yii1\BugsnagLogRoute',
-                'levels' => 'error, warning',
+return [
+    'components' => [
+        'bugsnag' => [
+            'class' => '\demi\bugsnag\yii1\BugsnagComponent',
+            'bugsnagApiKey' => '<YOU API KEY>',
+            'notifyReleaseStages' => ['production', 'development'],
+            'projectRoot' => realpath(__DIR__ . '/../..'),
+        ],
+        'log' => [
+            'class' => 'CLogRouter',
+            'routes' => [
+                [
+                    'class' => '\demi\bugsnag\yii1\BugsnagLogRoute',
+                    'levels' => 'error, warning',
+                ],
             ],
         ],
     ],
-],
+];
 ```
 /protected/config/console.php:
 ```php
+<?php
+
 $mainConfig = require(dirname(__FILE__) . '/main.php');
 return [
     'components' => [
@@ -51,8 +56,21 @@ return [
             ],
         ]
     ],
-],
+];
 ```
 
 Examples
 --------
+```php
+<?php
+
+// log exception
+Yii::app()->bugsnag->notifyException(\Exception $e);
+// log message
+Yii::app()->bugsnag->notifyError('TestErrorName', 'Example warning message!', ['foo' => 'bar'], 'warning');
+
+// or native exception
+throw \Exception('Example exception message');
+// or native log message
+Yii::log('Example warning message!', 'warning', 'application.error');
+```

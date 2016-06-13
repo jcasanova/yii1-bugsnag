@@ -1,0 +1,36 @@
+{
+    "name": "demi/yii1-bugsnag",
+    "description": "Yii1 bugsnag error handler",
+    "keywords": [
+        "php",
+        "bugsnag",
+        "yii1",
+        "error",
+        "handler",
+        "logger"
+    ],
+    "homepage": "https://github.com/demisang/yii1-bugsnag#readme",
+    "type": "library",
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Ivan Orlov",
+            "email": "orlov_mail@mail.ru",
+            "homepage": "https://orlov.io/",
+            "role": "Creator"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/demisang/yii1-bugsnag/issues",
+        "source": "https://github.com/demisang/yii1-bugsnag"
+    },
+    "require": {
+        "php": ">=5.1.0",
+        "yiisoft/yii": "1.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "demi\\bugsnag\\yii1": ""
+        }
+    }
+}

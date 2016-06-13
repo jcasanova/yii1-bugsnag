@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "demi\\bugsnag\\yii1": ""
+            "demi\\bugsnag\\yii1\\": ""
         }
     }
 }

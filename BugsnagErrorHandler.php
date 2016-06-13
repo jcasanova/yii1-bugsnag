@@ -9,7 +9,7 @@ use CErrorHandler;
  * Bugsnag error handler class for Yii1
  * Send exceptions to bugsnag
  */
-class ErrorHandler extends CErrorHandler
+class BugsnagErrorHandler extends CErrorHandler
 {
     /**
      * Name of bugsnag component: Yii::app()->bugsnag

@@ -37,6 +37,9 @@ Configuration
 $mainConfig = require(dirname(__FILE__) . '/main.php');
 return [
     'components' => [
+        'errorHandler' => [
+            'class' => '\demi\bugsnag\yii1\BugsnagErrorHandler',
+        ],
         'bugsnag' => $mainConfig['components']['bugsnag'],
         'log' => [
             'class' => 'CLogRouter',

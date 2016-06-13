@@ -21,6 +21,12 @@ class BugsnagLogRoute extends CLogRoute
      * @inheritdoc
      */
     public $levels = 'error, warning';
+    /**
+     * Do not log exception messages
+     *
+     * @var array
+     */
+    public $except = ['exception.*'];
 
     /**
      * Send log messages to bugsnag.

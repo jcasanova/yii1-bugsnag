@@ -2,6 +2,7 @@
 
 namespace demi\bugsnag\yii1;
 
+use Yii;
 use Bugsnag_Client;
 
 /**
@@ -37,7 +38,6 @@ class BugsnagComponent extends \CApplicationComponent
      * @var array
      */
     public $filters = ['password'];
-
     /**
      * Bugsnag client instance
      *
@@ -62,28 +62,6 @@ class BugsnagComponent extends \CApplicationComponent
         if ($this->releaseStage === null) {
             $this->releaseStage = defined('YII_DEBUG') && YII_DEBUG ? 'development' : 'production';
         }
-
-        // Client
-        $client = new Bugsnag_Client($this->bugsnagApiKey);
-        $client->setNotifyReleaseStages($this->notifyReleaseStages);
-        $client->setReleaseStage($this->releaseStage);
-        $client->setFilters($this->filters);
-        // Store client
-        $this->_client = $client;
-
-        // Register
-        $this->register();
-    }
-
-    /**
-     * Attach bugsnag error/exception handlers
-     */
-    public function register()
-    {
-        $bugsnag = $this->client;
-
-        set_error_handler(array($bugsnag, "errorHandler"));
-        set_exception_handler(array($bugsnag, "exceptionHandler"));
     }
 
     /**
@@ -93,6 +71,67 @@ class BugsnagComponent extends \CApplicationComponent
      */
     public function getClient()
     {
+        if ($this->_client) {
+            return $this->_client;
+        }
+
+        // Client
+        $client = new Bugsnag_Client($this->bugsnagApiKey);
+        $client->setNotifyReleaseStages($this->notifyReleaseStages);
+        $client->setReleaseStage($this->releaseStage);
+        $client->setFilters($this->filters);
+        // Set user info
+        $user = $this->getUserData();
+        if ($user) {
+            $client->setUser($user);
+        }
+
+        // Register error handlers
+//        set_error_handler(array($client, 'errorHandler'));
+//        set_exception_handler(array($client, 'exceptionHandler'));
+
+        // Store client
+        $this->_client = $client;
+
         return $this->_client;
+    }
+
+    /**
+     * Notify Bugsnag of a non-fatal/handled throwable
+     *
+     * @param \Throwable $throwable the throwable to notify Bugsnag about
+     * @param array $metaData       optional metaData to send with this error
+     * @param String $severity      optional severity of this error (fatal/error/warning/info)
+     */
+    public function notifyException($throwable, array $metaData = null, $severity = null)
+    {
+        $this->client->notifyException($throwable, $metaData, $severity);
+    }
+
+    /**
+     * Notify Bugsnag of a non-fatal/handled error
+     *
+     * @param String $name     the name of the error, a short (1 word) string
+     * @param String $message  the error message
+     * @param array $metaData  optional metaData to send with this error
+     * @param String $severity optional severity of this error (fatal/error/warning/info)
+     */
+    public function notifyError($name, $message, array $metaData = null, $severity = null)
+    {
+        $this->client->notifyError($name, $message, $metaData, $severity);
+    }
+
+    /**
+     * Returns user information
+     *
+     * @return array
+     */
+    public function getUserData()
+    {
+        if (!Yii::app()->hasComponent('user') || Yii::app()->user->isGuest) {
+            return null;
+        }
+
+        return ['id' => Yii::app()->user->id];
     }
 }

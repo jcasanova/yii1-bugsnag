@@ -26,6 +26,7 @@ class BugsnagErrorHandler extends CErrorHandler
         // Do not track 404-errors
         if ($exception instanceof \CHttpException && $exception->statusCode == 404) {
             parent::handleException($exception);
+            return;
         }
 
         /** @var \demi\bugsnag\yii1\BugsnagComponent $bugsnag */

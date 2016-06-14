@@ -23,6 +23,11 @@ class BugsnagErrorHandler extends CErrorHandler
      */
     protected function handleException($exception)
     {
+        // Do not track 404-errors
+        if ($exception instanceof \CHttpException && $exception->statusCode == 404) {
+            parent::handleException($exception);
+        }
+
         /** @var \demi\bugsnag\yii1\BugsnagComponent $bugsnag */
         $bugsnag = Yii::app()->getComponent($this->bugsnagComponentName);
 

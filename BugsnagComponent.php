@@ -3,12 +3,12 @@
 namespace jcasanova\bugsnag\yii1;
 
 use Yii;
-use Bugsnag_Client;
+use Bugsnag\Client;
 
 /**
  * Bugsnag component
  *
- * @property-read Bugsnag_Client $client
+ * @property-read Bugsnag\Client $client
  */
 class BugsnagComponent extends \CApplicationComponent
 {
@@ -47,7 +47,7 @@ class BugsnagComponent extends \CApplicationComponent
     /**
      * Bugsnag client instance
      *
-     * @var Bugsnag_Client
+     * @var Bugsnag\Client
      */
     protected $_client;
 
@@ -73,7 +73,7 @@ class BugsnagComponent extends \CApplicationComponent
     /**
      * Get bugsnag client instance
      *
-     * @return Bugsnag_Client
+     * @return Bugsnag\Client
      */
     public function getClient()
     {
@@ -82,7 +82,7 @@ class BugsnagComponent extends \CApplicationComponent
         }
 
         // Client
-        $client = new Bugsnag_Client($this->bugsnagApiKey);
+        $client = new \Bugsnag\Client($this->bugsnagApiKey);
         $client->setNotifyReleaseStages($this->notifyReleaseStages);
         $client->setReleaseStage($this->releaseStage);
         $client->setFilters($this->filters);

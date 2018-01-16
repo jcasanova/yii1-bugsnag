@@ -97,6 +97,8 @@ class BugsnagComponent extends \CApplicationComponent
                 $report->setUser($user);
             });
         }
+        // Session tracking
+        $client->setAutoCaptureSessions(true);
 
         // Store client
         $this->_client = $client;

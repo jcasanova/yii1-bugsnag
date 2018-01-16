@@ -108,12 +108,11 @@ class BugsnagComponent extends \CApplicationComponent
      * Notify Bugsnag of a non-fatal/handled throwable
      *
      * @param \Throwable $throwable the throwable to notify Bugsnag about
-     * @param array $metaData       optional metaData to send with this error
-     * @param String $severity      optional severity of this error (fatal/error/warning/info)
+     * @param callable $callback  function($report)
      */
-    public function notifyException($throwable, array $metaData = null, $severity = null)
+    public function notifyException($throwable, $callback = null)
     {
-        $this->client->notifyException($throwable, $metaData, $severity);
+        $this->client->notifyException($throwable, $callback);
     }
 
     /**

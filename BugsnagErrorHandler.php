@@ -33,7 +33,9 @@ class BugsnagErrorHandler extends CErrorHandler
         $bugsnag = Yii::app()->getComponent($this->bugsnagComponentName);
 
         // Notify bugsnag exception
-        $bugsnag->notifyException($exception);
+        $bugsnag->notifyException($exception, function($report) {
+            $report->setSeverity('error');
+        });
 
         parent::handleException($exception);
     }

@@ -43,7 +43,9 @@ class BugsnagLogRoute extends CLogRoute
         foreach ($logs as $log) {
             list($message, $level, $category, $timestamp) = $log;
 
-            $bugsnag->notifyError($category, $message, null, $level);
+            $bugsnag->notifyError($category, $message, function($report) use ($level) {
+                $report->setSeverity($level);
+            });
         }
     }
 }

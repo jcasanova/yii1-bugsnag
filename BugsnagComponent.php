@@ -120,14 +120,13 @@ class BugsnagComponent extends \CApplicationComponent
     /**
      * Notify Bugsnag of a non-fatal/handled error
      *
-     * @param String $name     the name of the error, a short (1 word) string
-     * @param String $message  the error message
-     * @param array $metaData  optional metaData to send with this error
-     * @param String $severity optional severity of this error (fatal/error/warning/info)
+     * @param string $name     the name of the error, a short (1 word) string
+     * @param string $message  the error message
+     * @param callable $callback  function($report)
      */
-    public function notifyError($name, $message, array $metaData = null, $severity = null)
+    public function notifyError($name, $message, $callback = null)
     {
-        $this->client->notifyError($name, $message, $metaData, $severity);
+        $this->client->notifyError($name, $message, $callback);
     }
 
     /**

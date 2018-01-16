@@ -93,7 +93,9 @@ class BugsnagComponent extends \CApplicationComponent
         // Set user info
         $user = $this->getUserData();
         if ($user) {
-            $client->setUser($user);
+            $client->registerCallback(function($report) use ($user) {
+                $report->setUser($user);
+            });
         }
 
         // Store client

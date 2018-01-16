@@ -82,7 +82,7 @@ class BugsnagComponent extends \CApplicationComponent
         }
 
         // Client
-        $client = new \Bugsnag\Client($this->bugsnagApiKey);
+        $client = \Bugsnag\Client::make($this->bugsnagApiKey);
         $client->setNotifyReleaseStages($this->notifyReleaseStages);
         $client->setReleaseStage($this->releaseStage);
         $client->setFilters($this->filters);

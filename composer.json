@@ -1,5 +1,5 @@
 {
-    "name": "demi/yii1-bugsnag",
+    "name": "jcasanova/yii1-bugsnag",
     "description": "Yii1 bugsnag error handler",
     "keywords": [
         "php",
@@ -9,7 +9,7 @@
         "handler",
         "logger"
     ],
-    "homepage": "https://github.com/demisang/yii1-bugsnag#readme",
+    "homepage": "https://github.com/jcasanova/yii1-bugsnag#readme",
     "type": "library",
     "license": "GNU",
     "authors": [
@@ -21,17 +21,17 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/demisang/yii1-bugsnag/issues",
-        "source": "https://github.com/demisang/yii1-bugsnag"
+        "issues": "https://github.com/jcasanova/yii1-bugsnag/issues",
+        "source": "https://github.com/jcasanova/yii1-bugsnag"
     },
     "require": {
-        "php": ">=5.1.0",
+        "php": ">=5.6.0",
         "yiisoft/yii": "1.1.*",
-        "bugsnag/bugsnag": "2.*"
+        "bugsnag/bugsnag": "3.*"
     },
     "autoload": {
         "psr-4": {
-            "demi\\bugsnag\\yii1\\": ""
+            "jcasanova\\bugsnag\\yii1\\": ""
         }
     }
 }

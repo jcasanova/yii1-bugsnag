@@ -1,6 +1,6 @@
 <?php
 
-namespace demi\bugsnag\yii1;
+namespace jcasanova\bugsnag\yii1;
 
 use Yii;
 use Bugsnag_Client;

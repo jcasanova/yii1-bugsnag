@@ -1,6 +1,6 @@
 <?php
 
-namespace demi\bugsnag\yii1;
+namespace jcasanova\bugsnag\yii1;
 
 use Yii;
 use CLogRoute;
@@ -37,7 +37,7 @@ class BugsnagLogRoute extends CLogRoute
      */
     protected function processLogs($logs)
     {
-        /** @var \demi\bugsnag\yii1\BugsnagComponent $bugsnag */
+        /** @var \jcasanova\bugsnag\yii1\BugsnagComponent $bugsnag */
         $bugsnag = Yii::app()->getComponent($this->bugsnagComponentName);
 
         foreach ($logs as $log) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace demi\bugsnag\yii1;
+namespace jcasanova\bugsnag\yii1;
 
 use Yii;
 use CErrorHandler;
@@ -29,7 +29,7 @@ class BugsnagErrorHandler extends CErrorHandler
             return;
         }
 
-        /** @var \demi\bugsnag\yii1\BugsnagComponent $bugsnag */
+        /** @var \jcasanova\bugsnag\yii1\BugsnagComponent $bugsnag */
         $bugsnag = Yii::app()->getComponent($this->bugsnagComponentName);
 
         // Notify bugsnag exception

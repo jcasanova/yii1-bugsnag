@@ -53,12 +53,12 @@ class BugsnagComponent extends \CApplicationComponent
      */
     public $filters = ['password'];
     /**
-     * Set the error report callback.
+     * Set the error report callbacks.
      * Eg. function($report) { $report->setUser(['id' => 22])}
      *
-     * @var callable
+     * @var mixed callable or array of callables
      */
-    public $reportCallback;
+    public $reportCallbacks;
     /**
      * Absolute path to the root of your application.
      *
@@ -115,9 +115,16 @@ class BugsnagComponent extends \CApplicationComponent
             $client->setProjectRoot($this->projectRoot);
         }
 
-        // Register error report callback
-        if ($this->reportCallback && is_callable($this->reportCallback)) {
-            $client->registerCallback($this->reportCallback);
+        // Register error report callbacks
+        if ($this->reportCallbacks) {
+            if (!is_array($this->reportCallbacks)) {
+                $this->reportCallbacks = array($this->reportCallbacks);
+            }
+            foreach ($this->reportCallbacks as $reportCallback) {
+                if (is_callable($reportCallback)) {
+                    $client->registerCallback($reportCallback);
+                }
+            }
         }
 
         // Session tracking

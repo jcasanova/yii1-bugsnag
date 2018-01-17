@@ -3,7 +3,7 @@
 namespace jcasanova\bugsnag\yii1;
 
 use Yii;
-use Bugsnag\Client;
+use Bugsnag;
 
 /**
  * Bugsnag component
@@ -82,7 +82,7 @@ class BugsnagComponent extends \CApplicationComponent
         }
 
         // Client
-        $client = \Bugsnag\Client::make($this->bugsnagApiKey);
+        $client = Bugsnag\Client::make($this->bugsnagApiKey);
         $client->setNotifyReleaseStages($this->notifyReleaseStages);
         $client->setReleaseStage($this->releaseStage);
         $client->setAppVersion('1.2.3');

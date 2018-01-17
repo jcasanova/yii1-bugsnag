@@ -33,6 +33,13 @@ class BugsnagComponent extends \CApplicationComponent
      */
     public $appVersion;
     /**
+     * Set app type
+     * Eg. frontend/backend/console/api
+     *
+     * @var string
+     */
+    public $appType;
+    /**
      * All possible release stages
      *
      * @var array
@@ -100,6 +107,7 @@ class BugsnagComponent extends \CApplicationComponent
         $client->setNotifyReleaseStages($this->notifyReleaseStages);
         $client->setReleaseStage($this->releaseStage);
         $client->setAppVersion($this->appVersion);
+        $client->setAppType($this->appType);
         $client->setFilters($this->filters);
 
         // Set project root

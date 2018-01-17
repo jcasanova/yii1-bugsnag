@@ -85,6 +85,7 @@ class BugsnagComponent extends \CApplicationComponent
         $client = \Bugsnag\Client::make($this->bugsnagApiKey);
         $client->setNotifyReleaseStages($this->notifyReleaseStages);
         $client->setReleaseStage($this->releaseStage);
+        $client->setAppVersion('1.2.3');
         $client->setFilters($this->filters);
         // Set project root
         if ($this->projectRoot !== null) {

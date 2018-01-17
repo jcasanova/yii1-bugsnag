@@ -46,6 +46,13 @@ class BugsnagComponent extends \CApplicationComponent
      */
     public $filters = ['password'];
     /**
+     * Set the error report callback.
+     * Eg. function($report) { $report->setUser(['id' => 22])}
+     *
+     * @var callable
+     */
+    public $reportCallback;
+    /**
      * Absolute path to the root of your application.
      *
      * @var string
@@ -94,17 +101,17 @@ class BugsnagComponent extends \CApplicationComponent
         $client->setReleaseStage($this->releaseStage);
         $client->setAppVersion($this->appVersion);
         $client->setFilters($this->filters);
+
         // Set project root
         if ($this->projectRoot !== null) {
             $client->setProjectRoot($this->projectRoot);
         }
-        // Set user info
-        $user = $this->getUserData();
-        if ($user) {
-            $client->registerCallback(function($report) use ($user) {
-                $report->setUser($user);
-            });
+
+        // Register error report callback
+        if ($this->reportCallback && is_callable($this->reportCallback)) {
+            $client->registerCallback($this->reportCallback);
         }
+
         // Session tracking
         $client->setAutoCaptureSessions(true);
 
@@ -135,19 +142,5 @@ class BugsnagComponent extends \CApplicationComponent
     public function notifyError($name, $message, $callback = null)
     {
         $this->client->notifyError($name, $message, $callback);
-    }
-
-    /**
-     * Returns user information
-     *
-     * @return array
-     */
-    public function getUserData()
-    {
-        if (!Yii::app()->hasComponent('user') || Yii::app()->user->isGuest) {
-            return null;
-        }
-
-        return ['id' => Yii::app()->user->id];
     }
 }

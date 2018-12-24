@@ -26,8 +26,8 @@
     },
     "require": {
         "php": ">=5.6.0",
-        "yiisoft/yii": "1.1.*",
-        "bugsnag/bugsnag": "3.*"
+        "bugsnag/bugsnag": "^3.15",
+        "yiisoft/yii": "^1.1"
     },
     "autoload": {
         "psr-4": {
